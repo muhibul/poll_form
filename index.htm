@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Poll Form</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/poll.js"></script>
+    <script type="text/javascript">
+    	
+    	
+    </script>
+
+	<style type="text/css">
+
+	::selection { background-color: #E13300; color: white; }
+	::-moz-selection { background-color: #E13300; color: white; }
+
+	body {
+		background-color: #fff;
+		margin: 40px;
+		font: 13px/20px normal Helvetica, Arial, sans-serif;
+		color: #4F5155;
+	}
+
+	a {
+		color: #003399;
+		background-color: transparent;
+		font-weight: normal;
+	}
+
+	h2 {
+		color: #444;
+		background-color: transparent;
+		border-bottom: 1px solid #D0D0D0;
+		font-size: 19px;
+		font-weight: normal;
+		margin: 0 0 14px 0;
+		padding: 14px 15px 10px 15px;
+	}
+
+	code {
+		font-family: Consolas, Monaco, Courier New, Courier, monospace;
+		font-size: 12px;
+		background-color: #f9f9f9;
+		border: 1px solid #D0D0D0;
+		color: #002166;
+		display: block;
+		margin: 14px 0 14px 0;
+		padding: 12px 10px 12px 10px;
+	}
+
+	#field_set {
+		margin: 0 15px 0 15px;
+	}
+
+	p.footer {
+		text-align: right;
+		font-size: 11px;
+		border-top: 1px solid #D0D0D0;
+		line-height: 32px;
+		padding: 0 10px 0 10px;
+		margin: 20px 0 0 0;
+	}
+
+	#container {
+		margin: 10px;
+		border: 1px solid #D0D0D0;
+		box-shadow: 0 0 8px #D0D0D0;
+	}
+	.error p{color: red;}
+	</style>
+</head>
+<body>
+
+<div id="container">
+	
+<h2>Poll</h1>
+<div id="poll-form"></div>
+	<div id="field_set">
+		<div id="set_0">
+			<p>Question:</p>
+			<p>
+				<input type="text" name="question[0]" id="question_0" value="">
+			</p>
+
+			<div id="input_type_wrapper" style="display: block;">
+			  <label>Select Answer Type</label>
+			  <select id="input_type_selector">
+			  	<option value=""></option>
+			  	<option value="text">Text Field</option>
+			  	<option value="textarea">Text Area</option>
+			  	<option value="checkbox">Checkbox</option>
+			  	<option value="option">Radio Buttons</option>
+			  	<option value="select">Dropdown List</option>
+			  	<option value="datepicker">Date</option>
+			  </select>
+			</div>
+
+			<!-- for text -->
+			<div id="text_value_wrapper" style="display: none;">
+			  <div id="text_value_set"></div>
+			  <p class="text_value_template">
+			    <input type="text">
+			  </p>
+			</div>
+
+			<!-- for textarea -->
+			<div id="textarea_value_wrapper" style="display: none;">
+			  <div id="textarea_value_set"></div>
+			  <p class="textarea_value_template">
+			    <textarea rows="4" cols="50"></textarea>
+			  </p>
+			</div>
+			
+			<!-- for ddl -->
+			<div id="ddl_value_wrapper" style="display: none;">
+			  <div id="ddl_value_set"></div>
+			  <p class="ddl_value_template">
+			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
+			  </p>
+			  <input type="button" id="add_ddl_values" value="Add Value">
+			</div>
+
+			<!-- for radio option -->
+			<div id="option_value_wrapper" style="display: none;">
+			  <div id="option_value_set"></div>
+			  <p class="option_value_template">
+			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
+			  </p>
+			  <input type="button" id="add_option_values" value="Add Value">
+			</div>
+
+			<!-- for checkbox -->
+			<div id="checkbox_value_wrapper" style="display: none;">
+			  <div id="checkbox_value_set"></div>
+			  <p class="checkbox_value_template">
+			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
+			  </p>
+			  <input type="button" id="add_checkbox_values" value="Add Value">
+			</div>
+		</div>
+
+	</div>
+	<input id="add_question" name="add_question" value="Add Question" type="button">
+</div>
+
+</body>
+</html>
