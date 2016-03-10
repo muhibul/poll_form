@@ -73,75 +73,12 @@
 <body>
 
 <div id="container">
-	
-<h2>Poll</h1>
-<div id="poll-form"></div>
-	<div id="field_set">
-		<div id="set_0">
-			<p>Question:</p>
-			<p>
-				<input type="text" name="question[0]" id="question_0" value="">
-			</p>
-
-			<div id="input_type_wrapper" style="display: block;">
-			  <label>Select Answer Type</label>
-			  <select id="input_type_selector">
-			  	<option value=""></option>
-			  	<option value="text">Text Field</option>
-			  	<option value="textarea">Text Area</option>
-			  	<option value="checkbox">Checkbox</option>
-			  	<option value="option">Radio Buttons</option>
-			  	<option value="select">Dropdown List</option>
-			  	<option value="datepicker">Date</option>
-			  </select>
-			</div>
-
-			<!-- for text -->
-			<div id="text_value_wrapper" style="display: none;">
-			  <div id="text_value_set"></div>
-			  <p class="text_value_template">
-			    <input type="text">
-			  </p>
-			</div>
-
-			<!-- for textarea -->
-			<div id="textarea_value_wrapper" style="display: none;">
-			  <div id="textarea_value_set"></div>
-			  <p class="textarea_value_template">
-			    <textarea rows="4" cols="50"></textarea>
-			  </p>
-			</div>
-			
-			<!-- for ddl -->
-			<div id="ddl_value_wrapper" style="display: none;">
-			  <div id="ddl_value_set"></div>
-			  <p class="ddl_value_template">
-			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
-			  </p>
-			  <input type="button" id="add_ddl_values" value="Add Value">
-			</div>
-
-			<!-- for radio option -->
-			<div id="option_value_wrapper" style="display: none;">
-			  <div id="option_value_set"></div>
-			  <p class="option_value_template">
-			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
-			  </p>
-			  <input type="button" id="add_option_values" value="Add Value">
-			</div>
-
-			<!-- for checkbox -->
-			<div id="checkbox_value_wrapper" style="display: none;">
-			  <div id="checkbox_value_set"></div>
-			  <p class="checkbox_value_template">
-			    <label>Value <input type="text"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>
-			  </p>
-			  <input type="button" id="add_checkbox_values" value="Add Value">
-			</div>
-		</div>
-
-	</div>
-	<input id="add_question" name="add_question" value="Add Question" type="button">
+	<h2>Poll</h1>
+	<form name="poll-form" action="save.php" method="post">
+		<div id="field_set"></div>
+		<input id="add_question" name="add_question" value="Add Question" type="button">
+		<input id="save_poll" name="save_poll" value="Save" type="submit">
+	</form>
 </div>
 
 </body>
