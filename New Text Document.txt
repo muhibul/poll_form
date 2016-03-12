@@ -1,0 +1,37 @@
+/**
+ * Strip Image Tags
+ *
+ * @param	string	$str
+ * @return	string
+ */
+public function strip_image_tags($str)
+{
+	return preg_replace(array('#<img[\s/]+.*?src\s*=\s*["\'](.+?)["\'].*?\>#', '#<img[\s/]+.*?src\s*=\s*(.+?).*?\>#'), '\\1', $str);
+}
+
+
+/**
+ * JS Image Removal
+ *
+ * Callback method for xss_clean() to sanitize image tags.
+ *
+ * This limits the PCRE backtracks, making it more performance friendly
+ * and prevents PREG_BACKTRACK_LIMIT_ERROR from being triggered in
+ * PHP 5.2+ on image tag heavy strings.
+ *
+ * @used-by	CI_Security::xss_clean()
+ * @param	array	$match
+ * @return	string
+ */
+protected function _js_img_removal($match)
+{
+	return str_replace(
+		$match[1],
+		preg_replace(
+			'#src=.*?(?:(?:alert|prompt|confirm|eval)(?:\(|&\#40;)|javascript:|livescript:|mocha:|charset=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si',
+			'',
+			$this->_filter_attributes($match[1])
+		),
+		$match[0]
+	);
+}

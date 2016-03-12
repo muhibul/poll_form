@@ -5,8 +5,7 @@ $( document ).ready(function() {
     
     function add_row(row_seq) {
       field_set = '<div class-"set" id="set_'+row_seq+'">'
-         +'  <p>Question:</p>'
-         +'  <p>'
+         +'  <p>Question:'
          +'    <input type="text" name="question['+row_seq+']" id="question_'+row_seq+'" value="">'
          +'  </p>'
          +'  <div id="input_type_wrapper_'+row_seq+'" style="display: block;">'
@@ -31,17 +30,15 @@ $( document ).ready(function() {
     }
 
     $('#add_question').click(function(){
-      console.log(row_seq);
       add_row(row_seq);
       row_seq++;
     });
 });
 
-
 function generate_input(row_seq) {
   var selected_input_type = $('#input_type_selector_'+row_seq).val();
   if(selected_input_type == 'select' || selected_input_type == 'checkbox' || selected_input_type == 'option'){
-    show_dropdown_value(row_seq, item_seq);
+    show_dropdown_value(row_seq, item_seq, selected_input_type);
   }else if(selected_input_type == 'text'){
     create_text_answer(row_seq);
   }else if(selected_input_type == 'textarea'){
@@ -49,28 +46,25 @@ function generate_input(row_seq) {
   }
 }
 
-//for ddl
-function add_ddl_value_row(row_seq){
-  ddl_item_html= '    <p class="ddl_value_template">'
-                 +'      <label>Value <input type="text" id="ddl_value_'+row_seq+'"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>'
-                 +'    </p>';
-  $('#ddl_value_set_'+row_seq).append(ddl_item_html);
-  
-  $('#ddl_value_set_'+row_seq+' p a.delete_row').click(function(){
-    $(this).parent().remove();
-  });
-}
-function show_dropdown_value(row_seq, item_seq){
-  var items_wrapper = items_holder(row_seq, item_seq);
+//for ddl, checkbox, radio option
+function show_dropdown_value(row_seq, item_seq, selected_input_type){
+  var items_wrapper = items_holder(row_seq, item_seq, selected_input_type);
   $('#answer_wrapper_'+row_seq).html(items_wrapper);
 }
 
-function items_holder(index, item_seq) {
+function items_holder(index, item_seq, input_type) {
   var items_wrapper = $('<div></div>').attr({
     type: 'text',
     id: 'ddl_value_wrapper_'+index,
     name: 'ddl_value_wrapper_['+index+']'
   });
+  var hidden_input_type = $('<input>').attr({
+    type: 'hidden',
+    id: 'answer_'+index+'_type',
+    name: 'answer['+index+'][type]',
+    value: input_type
+  }).appendTo(items_wrapper);
+  
   var btn_add = $('<input>').attr({
     type: 'button',
     id: 'add_item_'+index,
@@ -89,7 +83,7 @@ function items_holder(index, item_seq) {
 
 function create_item(index, item_seq) {
   var id = 'answer_'+index+'_'+item_seq;
-  var item_label = $('<label></label>').html('Value: ');
+  var item_label = $('<p></p>').html('Value: ');
   var item = $('<input>').attr({
     type: 'text',
     id: id,
@@ -99,56 +93,42 @@ function create_item(index, item_seq) {
   return item_label;
 }
 
-//for radio option
-function add_option_value_row(row_seq){
-  radio_item_html='    <p class="option_value_template">'
-                 +'      <label>Value <input type="text" id="option_value_'+row_seq+'"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>'
-                 +'    </p>';
-  $('#option_value_set_'+row_seq).append(radio_item_html);
-
-  $('#option_value_set_'+row_seq+' p a.delete_row').click(function(){
-    $(this).parent().remove();
-  });
-}
-function show_option_value(row_seq){
-  $('#option_value_wrapper_'+row_seq).show();
-}
-
-//for checkbox
-function add_checkbox_value_row(row_seq){
-  checkbox_item_html='    <p class="checkbox_value_template">'
-                   +'      <label>Value <input type="text" id="checkbox_value_'+row_seq+'"></label> <a href="javascript:void(0);" class="delete_row">Remove</a>'
-                   +'    </p>';
-  $('#checkbox_value_set_'+row_seq).append(checkbox_item_html);
-
-  $('#checkbox_value_set_'+row_seq+' p a.delete_row').click(function(){
-    $(this).parent().remove();
-  });
-}
-function show_checkbox_value(row_seq){
-  $('#checkbox_value_wrapper_'+row_seq).show();
-}
-
 //for text
 function create_text_answer(row_seq){
+  var p = $('<p>Answer: </p>');
   var input = $('<input>').attr({
     type: 'text',
-    id: 'answer_'+row_seq,
-    name: 'answer['+row_seq+']',
+    id: 'answer_'+row_seq+'_0',
+    name: 'answer['+row_seq+'][0]',
     value: ''
-  });
-  $('#answer_wrapper_'+row_seq).html(input);
+  }).appendTo(p);
+  var hidden_input_type = $('<input>').attr({
+    type: 'hidden',
+    id: 'answer_'+row_seq+'_type',
+    name: 'answer['+row_seq+'][type]',
+    value: 'text'
+  }).appendTo(p);
+
+  $('#answer_wrapper_'+row_seq).html(p);
 }
 
 //for textarea
 function create_textarea_answer(row_seq){
+  var p = $('<p>Answer: </p>');
   var input = $('<textarea></textarea>').attr({
     type: 'text',
-    id: 'answer_'+row_seq,
-    name: 'answer['+row_seq+']',
+    id: 'answer_'+row_seq+'_0',
+    name: 'answer['+row_seq+'][0]',
     rows: 4,
     cols: 50,
     value: ''
-  });
-  $('#answer_wrapper_'+row_seq).html(input);
+  }).appendTo(p);
+  var hidden_input_type = $('<input>').attr({
+    type: 'hidden',
+    id: 'answer_'+row_seq+'_type',
+    name: 'answer['+row_seq+'][type]',
+    value: 'textarea'
+  }).appendTo(p);
+
+  $('#answer_wrapper_'+row_seq).html(p);
 }
