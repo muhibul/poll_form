@@ -82,12 +82,12 @@ function items_holder(index, item_seq, input_type) {
 }
 
 function create_item(index, item_seq) {
-  var id = 'answer_'+index+'_'+item_seq;
+  var id = 'answer_'+index+'_item_'+item_seq;
   var item_label = $('<p></p>').html('Value: ');
   var item = $('<input>').attr({
     type: 'text',
     id: id,
-    name: 'answer['+index+']['+item_seq+']',
+    name: 'answer['+index+'][item]['+item_seq+']',
   }).appendTo(item_label);
 
   return item_label;
@@ -96,17 +96,17 @@ function create_item(index, item_seq) {
 //for text
 function create_text_answer(row_seq){
   var p = $('<p>Answer: </p>');
-  var input = $('<input>').attr({
-    type: 'text',
-    id: 'answer_'+row_seq+'_0',
-    name: 'answer['+row_seq+'][0]',
-    value: ''
-  }).appendTo(p);
   var hidden_input_type = $('<input>').attr({
     type: 'hidden',
     id: 'answer_'+row_seq+'_type',
     name: 'answer['+row_seq+'][type]',
     value: 'text'
+  }).appendTo(p);
+  var input = $('<input>').attr({
+    type: 'text',
+    id: 'answer_'+row_seq+'_item_0',
+    name: 'answer['+row_seq+'][item][0]',
+    value: ''
   }).appendTo(p);
 
   $('#answer_wrapper_'+row_seq).html(p);
@@ -115,19 +115,19 @@ function create_text_answer(row_seq){
 //for textarea
 function create_textarea_answer(row_seq){
   var p = $('<p>Answer: </p>');
-  var input = $('<textarea></textarea>').attr({
-    type: 'text',
-    id: 'answer_'+row_seq+'_0',
-    name: 'answer['+row_seq+'][0]',
-    rows: 4,
-    cols: 50,
-    value: ''
-  }).appendTo(p);
   var hidden_input_type = $('<input>').attr({
     type: 'hidden',
     id: 'answer_'+row_seq+'_type',
     name: 'answer['+row_seq+'][type]',
     value: 'textarea'
+  }).appendTo(p);
+  var input = $('<textarea></textarea>').attr({
+    type: 'text',
+    id: 'answer_'+row_seq+'_item_0',
+    name: 'answer['+row_seq+'][item][0]',
+    rows: 4,
+    cols: 50,
+    value: ''
   }).appendTo(p);
 
   $('#answer_wrapper_'+row_seq).html(p);
