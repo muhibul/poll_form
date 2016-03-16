@@ -6,7 +6,7 @@ $( document ).ready(function() {
     function add_row(row_seq) {
       field_set = '<div class-"set" id="set_'+row_seq+'">'
          +'  <p>Question:'
-         +'    <input type="text" name="question['+row_seq+']" id="question_'+row_seq+'" value="">'
+         +'    <input type="text" name="question['+row_seq+']" id="question_'+row_seq+'" value="" size="50" />'
          +'  </p>'
          +'  <div id="input_type_wrapper_'+row_seq+'" style="display: block;">'
          +'   <label>Select Answer Type</label>'
