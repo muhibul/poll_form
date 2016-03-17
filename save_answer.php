@@ -9,7 +9,7 @@ include_once('config.php');
 		//$result_question = $conn->query($sql_question);
 
 		//if($result_question){
-			echo '<pre>';print_r($_POST);echo '</pre>';
+			//echo '<pre>';print_r($_POST);echo '</pre>';
 			
 			foreach ($_POST['answer'] as $key => $answer) {
 				$poll_id = $_POST['poll_id'];
@@ -19,8 +19,8 @@ include_once('config.php');
 
 				foreach ($answer as $ans_key => $ans_value) {
 					$ans = $ans_value;
-					$ans_id = $ans_key;
-
+					echo $ans_id = $_POST['answer_id'][$q_id][$ans_key];//$ans_key;
+					echo '<pre>';print_r($ans_id);echo '</pre>';
 					echo $sql_answer = "INSERT INTO answers (id, poll_id, question_id, answer_id, answer) VALUES(UUID(), '".$poll_id."', '".$q_id."', '".$ans_id."', '".$ans."')";
 					echo "<br>";
 					$result_answer = $conn->query($sql_answer);

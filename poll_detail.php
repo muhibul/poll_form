@@ -25,6 +25,10 @@ $result_q = $conn->query($sql_q);
         $sql_ans = "SELECT * FROM answers_template WHERE question_id = '".$row_q->id."' ORDER BY seq ASC";
         $result_ans = $conn->query($sql_ans);
 
+        $answer_type = '';
+        $input_name = '';
+        $options = array();
+
         while ($ans = $result_ans->fetch_object()) {
             if($ans->answer_type == 'text'){
                 echo $ans->answer;
@@ -32,10 +36,40 @@ $result_q = $conn->query($sql_q);
             }elseif($ans->answer_type == 'textarea'){
                 echo $ans->answer;
                 echo '<textarea id="" name="answer['.$row_q->id.']['.$ans->id.']" cols="40" rows="5"></textarea>';
-            }elseif ($ans->answer_type == 'checkbox') {
+            }elseif($ans->answer_type == 'checkbox') {
                 echo '<label><input type="checkbox" id="" name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'">';
                 echo $ans->answer.'</label><br>';
+            }elseif($ans->answer_type == 'option') {
+                //echo '<label><input type="radio" id="" name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'">';
+                $input_name = 'answer['.$row_q->id.']';
+                $options[$ans->id] = $ans->answer;
+                //echo '<label><input type="radio" id="" name="answer['.$row_q->id.']" value="'.$ans->answer.'">';
+                //echo '<input type="hidden" name="answer_['.$row_q->id.']['.$ans->id.']" value="'.$ans->id.'">';
+                //echo $ans->answer.'</label><br>';
+            }elseif($ans->answer_type == 'select'){
+                $input_name = 'answer['.$row_q->id.']['.$ans->id.']';
+                $options[] = $ans->answer;
+                //echo '<option name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'"></option>';
+                //echo $ans->answer.'</label><br>';
             }
+            $answer_type = $ans->answer_type;
+        }
+
+        if($answer_type == 'option'){
+            $ans_html = '';
+            foreach ($options as $key => $value) {
+                $ans_html .= '<label><input type="radio" name="'.$input_name.'" value="'.$value.'">'.$value.'</label><br />';
+            }
+            
+            echo $ans_html;
+        }elseif($answer_type == 'select'){
+            $ans_html = '<select name="'.$input_name.'">';
+            $ans_html .= '<option value=""></option>';
+            foreach ($options as $key => $value) {
+                $ans_html .= '<option value="'.$value.'">'.$value.'</option>';
+            }
+            $ans_html .= '</select>';
+            echo $ans_html;
         }
     }
 /*} else {
