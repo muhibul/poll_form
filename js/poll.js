@@ -7,6 +7,7 @@ $( document ).ready(function() {
       field_set = '<div class-"set" id="set_'+row_seq+'">'
          +'  <p>Question:'
          +'    <input type="text" name="question['+row_seq+']" id="question_'+row_seq+'" value="" size="50" />'
+         +'    <a href="javascript:void(0);" onclick="remove_question(this);">[x]</a>'
          +'  </p>'
          +'  <div id="input_type_wrapper_'+row_seq+'" style="display: block;">'
          +'   <label>Select Answer Type</label>'
@@ -90,6 +91,16 @@ function create_item(index, item_seq) {
     name: 'answer['+index+'][item]['+item_seq+']',
   }).appendTo(item_label);
 
+  var close = $('<a>[x]</a>').attr({
+    href: 'javascript:void(0)',
+  }).appendTo(item_label);
+
+  $(close).click(function(){
+    if (confirm('Delete item?')){
+      $(this).parent().remove();
+    }
+  });
+
   return item_label;
 }
 
@@ -131,4 +142,10 @@ function create_textarea_answer(row_seq){
   }).appendTo(p);
 
   $('#answer_wrapper_'+row_seq).html(p);
+}
+
+function remove_question(elem) {
+  if (confirm('Delete question?')){
+    $(elem).parent().parent().remove();
+  }
 }
