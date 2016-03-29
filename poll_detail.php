@@ -1,3 +1,16 @@
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui/jquery-ui.js"></script>
+<script src="js/poll.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+  });
+</script>
+
+<link href="js/jquery-ui/jquery-ui.css" rel="stylesheet">
+
 <form action="save_answer.php" method="post" id="save_answer" name="save_answer">
 <?php
 include_once('config.php');
@@ -40,17 +53,17 @@ $result_q = $conn->query($sql_q);
                 echo '<label><input type="checkbox" id="" name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'">';
                 echo $ans->answer.'</label><br>';
             }elseif($ans->answer_type == 'option') {
-                //echo '<label><input type="radio" id="" name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'">';
                 $input_name = 'answer['.$row_q->id.']';
                 $options[$ans->id] = $ans->answer;
-                //echo '<label><input type="radio" id="" name="answer['.$row_q->id.']" value="'.$ans->answer.'">';
-                //echo '<input type="hidden" name="answer_['.$row_q->id.']['.$ans->id.']" value="'.$ans->id.'">';
-                //echo $ans->answer.'</label><br>';
             }elseif($ans->answer_type == 'select'){
-                $input_name = 'answer['.$row_q->id.']['.$ans->id.']';
-                $options[] = $ans->answer;
-                //echo '<option name="answer['.$row_q->id.']['.$ans->id.']" value="'.$ans->answer.'"></option>';
-                //echo $ans->answer.'</label><br>';
+                $ddl_name = 'answer_['.$row_q->id.']';
+                $ddl_id = 'answer_'.$row_q->id;
+                $hidden_id = 'hidden_answer_'.$row_q->id;
+
+                $options[] = '<option value="answer['.$row_q->id.']['.$ans->id.']">'.$ans->answer.'</option>';
+            }elseif($ans->answer_type == 'datepicker'){
+                echo $ans->answer;
+                echo '<input type="text" readonly class="datepicker" size="10" id="" name="answer['.$row_q->id.']['.$ans->id.']" value="">';
             }
             $answer_type = $ans->answer_type;
         }
@@ -63,12 +76,13 @@ $result_q = $conn->query($sql_q);
             
             echo $ans_html;
         }elseif($answer_type == 'select'){
-            $ans_html = '<select name="'.$input_name.'">';
+            $ans_html = '<select id="'.$ddl_id.'" name="'.$ddl_name.'" onchange="set_ddl_answer(\''.$hidden_id.'\', \''.$ddl_id.'\')">';
             $ans_html .= '<option value=""></option>';
             foreach ($options as $key => $value) {
-                $ans_html .= '<option value="'.$value.'">'.$value.'</option>';
+                $ans_html .= $value;
             }
             $ans_html .= '</select>';
+            $ans_html .= '<input type="hidden" id="'.$hidden_id.'" name="" />';
             echo $ans_html;
         }
     }

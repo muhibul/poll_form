@@ -19,6 +19,8 @@ $( document ).ready(function() {
          +'     <option value="option">Radio Buttons</option>'
          +'     <option value="select">Dropdown List</option>'
          +'     <option value="datepicker">Date</option>'
+         +'     <option value="email">Email</option>'
+         +'     <option value="number">Number</option>'
          +'    </select>'
          +'  </div>'
          +'  <div id="answer_wrapper_'+row_seq+'"></div>'
@@ -44,6 +46,8 @@ function generate_input(row_seq) {
     create_text_answer(row_seq);
   }else if(selected_input_type == 'textarea'){
     create_textarea_answer(row_seq);
+  }else if(selected_input_type == 'datepicker'){
+    create_datepicker_answer(row_seq);
   }
 }
 
@@ -140,6 +144,26 @@ function create_textarea_answer(row_seq){
     cols: 50,
     value: ''
   }).appendTo(p);
+
+  $('#answer_wrapper_'+row_seq).html(p);
+}
+
+//for datepicker
+function create_datepicker_answer(row_seq) {
+  var p = $('<p>Answer: </p>');
+  var hidden_input_type = $('<input>').attr({
+    type: 'hidden',
+    id: 'answer_'+row_seq+'_type',
+    name: 'answer['+row_seq+'][type]',
+    value: 'datepicker'
+  }).appendTo(p);
+  var input = $('<input>').attr({
+    type: 'text',
+    id: 'answer_'+row_seq+'_item_0',
+    name: 'answer['+row_seq+'][item][0]',
+    value: ''
+  }).appendTo(p);
+  $(input).datepicker();
 
   $('#answer_wrapper_'+row_seq).html(p);
 }
