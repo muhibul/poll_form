@@ -1,0 +1,79 @@
+/* Adjusting the size of the form's tab */
+.wizard > .steps > ul > li {
+    width: 20%;
+}
+
+/* Enable long-body form */
+.wizard > .content > .body {
+    position: static;
+}
+
+/* Color of buttons */
+
+.wizard > .steps .current a, .wizard > .steps .current a:hover, .wizard > .steps .current a:active,
+.wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active {
+    background-color: #0099e5;
+}
+
+.wizard > .steps .done a, .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
+    background: #8DCDEC;
+}
+
+.btn-primary {
+    background-color: #0099e5;
+    border-color: #0099e5;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    background-color: #048BCE;
+    border-color: #048BCE;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.label-primary, .badge-primary {
+    background-color: #0099e5;
+}
+
+.label-warning, .badge-warning {
+    background-color: #ff4c4c;
+}
+
+/* Search bar appearance */
+
+.navbar-form-custom .form-control {
+    background-color: #fff;
+    background-image: none;
+    height: inherit;
+    margin: 12px 0;
+}
+
+/* Sidebar */
+
+body {
+    background-color: #253340;
+}
+
+.nav-header {
+    background: none;
+}
+
+.nav > li.active {
+    border-left-color: #0099e5;
+    background-color: #1e1e1e;
+}
+
+.navbar-default .nav > li > a:hover, .navbar-default .nav > li > a:focus {
+    background-color: #1e1e1e;
+}
+
+body.mini-navbar .nav-header {
+    background-color: #0099e5;
+}
+/* Color of text */
+.text-theme {
+    color: #0099e5;
+}
